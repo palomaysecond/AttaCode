@@ -1,0 +1,36 @@
+{
+    "api_keys": {
+        "gpt": "your api-key",
+        "claude": "your api-key", 
+        "deepseek": "your api-key",
+        "qwen": "your api-key",
+        "gemini": "your api-key"
+    },
+    "model_configs": {
+        "gpt": {
+            "model_name": "gpt-4o",
+            "temperature": 0.3,
+            "max_tokens": 4096
+        },
+        "claude": {
+            "model_name": "claude-3-sonnet-20240229",
+            "temperature": 0.3,
+            "max_tokens": 4096
+        },
+        "deepseek": {
+            "model_name": "deepseek-chat",
+            "temperature": 0.3,
+            "max_tokens": 4096
+        },
+        "qwen": {
+            "model_name": "qwen3-32b",
+            "temperature": 0.3,
+            "max_tokens": 4096
+        },
+        "gemini": {
+            "model_name": "gemini-2.5-pro",
+            "temperature": 0.3,
+            "max_tokens": 4096
+        }
+    }
+}
