@@ -113,5 +113,7 @@ python iterative_attack.py \
 
 - Ensure that `requirements.txt` is installed before running any script.
 
+- Due to space limitations, more experiment details are provided in the Appendix.
+
 	
 
