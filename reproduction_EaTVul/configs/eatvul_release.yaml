@@ -1,0 +1,118 @@
+project:
+  name: eatvul_reproduction
+  seed: 42
+  output_dir: outputs/eatvul
+  attacode_repo: ../AttaCode
+
+datasets:
+  Devign:
+    train: ../AttaCode/dataset/Devign/train.jsonl
+    valid: ../AttaCode/dataset/Devign/valid.jsonl
+    test: ../AttaCode/dataset/Devign/test.jsonl
+  BigVul:
+    train: ../AttaCode/dataset/BigVul/train.jsonl
+    valid: ../AttaCode/dataset/BigVul/valid.jsonl
+    test: ../AttaCode/dataset/BigVul/test.jsonl
+  DiverseVul:
+    train: ../AttaCode/dataset/DiverseVul/train.jsonl
+    valid: ../AttaCode/dataset/DiverseVul/valid.jsonl
+    test: ../AttaCode/dataset/DiverseVul/test.jsonl
+
+target_models:
+  CodeBERT:
+    model_name_or_path: microsoft/codebert-base
+    tokenizer_name: microsoft/codebert-base
+    block_size: 512
+    eval_batch_size: 4
+    checkpoints:
+      Devign: checkpoints/target_models/LLM4CVD/CodeBERT/devign_0-512/checkpoint-best-f1/model.bin
+      BigVul: checkpoints/target_models/LLM4CVD/CodeBERT/bigvul_0-512/checkpoint-best-f1/model.bin
+      DiverseVul: checkpoints/target_models/LLM4CVD/CodeBERT/diversevul_0-512/checkpoint-best-f1/model.bin
+  UniXcoder:
+    model_name_or_path: microsoft/codebert-base
+    tokenizer_name: microsoft/codebert-base
+    use_encoder_only_prefix: true
+    block_size: 512
+    eval_batch_size: 4
+    checkpoints:
+      Devign: checkpoints/target_models/LLM4CVD/UniXcoder/devign_0-512/checkpoint-best-f1/model.bin
+      BigVul: checkpoints/target_models/LLM4CVD/UniXcoder/bigvul_0-512/checkpoint-best-f1/model.bin
+      DiverseVul: checkpoints/target_models/LLM4CVD/UniXcoder/diversevul_0-512/checkpoint-best-f1/model.bin
+  CodeT5:
+    model_name_or_path: Salesforce/codet5-base
+    tokenizer_name: Salesforce/codet5-base
+    block_size: 512
+    eval_batch_size: 4
+    prepare_batch_size: 32
+    checkpoints:
+      Devign: checkpoints/target_models/CodeT5/devign/model.bin
+      BigVul: checkpoints/target_models/CodeT5/bigvul/model.bin
+      DiverseVul: checkpoints/target_models/CodeT5/diversevul/model.bin
+
+attack:
+  attack_label: 1
+  only_correct_originals: true
+  max_attack_samples: null
+
+llm:
+  provider: aihubmix
+  model: gpt-4o
+  api_key_env: AIHUBMIX_API_KEY
+  base_url: https://aihubmix.com/v1
+  model_gallery_url: https://aihubmix.com/models
+  temperature: 0.7
+  max_tokens: 384
+  n: 1
+  timeout_seconds: 180
+  max_retries: 5
+  retry_initial_delay_seconds: 3
+  cache_dir: outputs/eatvul/cache/llm
+  error_cache_dir: outputs/eatvul/cache/llm_errors
+
+surrogate:
+  max_len: 200
+  min_token_freq: 1
+  embedding_dim: 100
+  hidden_dim: 128
+  dropout: 0.2
+  batch_size: 32
+  epochs: 100
+  patience: 40
+  learning_rate: 0.001
+  kd_temperature: 5.0
+  kd_alpha: 0.9
+  kd_beta: 0.1
+
+feature_selection:
+  attention_top_k: 10
+  svm_kernel: rbf
+  max_support_vectors: 200
+  context_window_lines: 5
+
+generation:
+  max_snippet_lines: 8
+  snippets_per_prompt: 1
+  max_regeneration_attempts: 4
+
+validation:
+  use_tree_sitter: true
+  allow_tree_sitter_fallback: true
+  reject_provider_messages: true
+  reject_urls: true
+  require_code_like_snippet: true
+  require_eatvul_prefix: true
+  reject_control_flow_jumps: true
+  reject_original_identifier_use: true
+  optional_compile_check: false
+
+fga:
+  num_clusters: 3
+  population_size: 20
+  max_generations: 5
+  fuzziness_alpha: 2.0
+  convergence_epsilon: 0.001
+  length_penalty_lambda: 0.1
+  crossover_rate: 0.8
+  mutation_rate: 0.2
+  max_inserted_snippets: 4
+  early_stop_on_success: true
