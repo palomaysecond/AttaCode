@@ -1,0 +1,14 @@
+Act as an expert C++ maintainer conducting a semantics-preserving refactoring exercise.
+
+Refactor the supplied implementation with the following single rule:
+- Rule: {rule_name}
+- Meaning: {rule_description}
+- Target location: {location}
+- Sequential stage: {stage}
+
+The function named {entrypoint} is an externally visible benchmark entry point. Preserve its name, parameters, return type, and call compatibility. Preserve observable behavior and required includes. Do not emit tests, prose, or multiple alternatives. Return only one complete C++ implementation in a ```cpp``` block.
+
+Implementation:
+```cpp
+{source_code}
+```

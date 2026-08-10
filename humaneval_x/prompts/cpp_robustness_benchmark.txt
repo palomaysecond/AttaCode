@@ -1,0 +1,21 @@
+You are participating in a controlled robustness benchmark for C++ refactoring systems.
+
+Apply exactly one behavior-preserving transformation to the source program below.
+
+Stage: {stage}
+Required transformation: {rule_name}
+Transformation definition: {rule_description}
+Target location: {location}
+Public entry point that must remain callable with the same signature: {entrypoint}
+
+Requirements:
+1. Preserve the program's observable behavior.
+2. Keep all required includes and the public entry point intact.
+3. Apply the requested transformation where it is applicable; do not introduce unrelated changes.
+4. Return only the complete transformed C++ implementation in one ```cpp``` block.
+5. Do not add a main function or any test code.
+
+Source program:
+```cpp
+{source_code}
+```

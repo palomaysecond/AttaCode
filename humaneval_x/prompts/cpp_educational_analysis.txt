@@ -1,0 +1,17 @@
+This is an educational experiment about whether automated C++ transformations retain program behavior.
+
+Rewrite the program using {rule_name}: {rule_description}
+Apply it near {location}. This is transformation stage {stage}.
+
+Constraints:
+- The externally tested entry point {entrypoint} must keep the same interface.
+- Preserve behavior, declarations, includes, and namespace requirements.
+- Apply only the requested rule and avoid gratuitous rewrites.
+- Do not include the benchmark tests or a main function.
+- Output only the complete result inside one ```cpp``` block.
+
+Original implementation:
+```cpp
+{source_code}
+```
+

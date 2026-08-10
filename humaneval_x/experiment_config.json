@@ -1,0 +1,69 @@
+{
+  "dataset": {
+    "path": "humaneval_cpp.jsonl"
+  },
+  "output_dir": "outputs",
+  "compiler": {
+    "executable": "g++",
+    "standard": "gnu++17",
+    "flags": ["-O0", "-pipe"],
+    "compile_timeout_seconds": 30,
+    "run_timeout_seconds": 10,
+    "memory_limit_mb": 1024,
+    "max_log_characters": 12000
+  },
+  "rule_selection": {
+    "strategy": "deterministic",
+    "seed": 42,
+    "stages": 3,
+    "importance_manifest": null
+  },
+  "generation": {
+    "temperature": 0.3,
+    "top_p": 1.0,
+    "max_tokens": 4096,
+    "seed": null,
+    "max_attempts": 3,
+    "prompt_templates": [
+      "prompts/cpp_robustness_benchmark.txt",
+      "prompts/cpp_expert_refactoring.txt",
+      "prompts/cpp_educational_analysis.txt"
+    ],
+    "refusal_keywords": [
+      "I cannot",
+      "I can't",
+      "I apologize",
+      "cannot assist",
+      "unable to comply",
+      "As an AI language model"
+    ]
+  },
+  "models": [
+    {
+      "id": "gpt4o",
+      "display_name": "GPT-4o",
+      "provider": "openai_compatible",
+      "model": "gpt-4o",
+      "api_key_env": "OPENAI_API_KEY",
+      "base_url_env": "OPENAI_BASE_URL"
+    },
+    {
+      "id": "deepseek_v3",
+      "display_name": "DeepSeek-V3",
+      "provider": "openai_compatible",
+      "model": "deepseek-chat",
+      "api_key_env": "DEEPSEEK_API_KEY",
+      "base_url": "https://api.deepseek.com",
+      "base_url_env": "DEEPSEEK_BASE_URL"
+    },
+    {
+      "id": "gemini_25_pro",
+      "display_name": "Gemini-2.5-Pro",
+      "provider": "openai_compatible",
+      "model": "gemini-2.5-pro",
+      "api_key_env": "GEMINI_API_KEY",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+      "base_url_env": "GEMINI_BASE_URL"
+    }
+  ]
+}
